@@ -22,7 +22,8 @@ class CircularMenuItem extends StatelessWidget {
   final Color? badgeColor;
 
   /// if animatedIcon and icon are passed, icon will be ignored
-  final AnimatedIcon? animatedIcon;
+  /// animatedIcon can be any Widget (AnimatedIcon, custom widgets, etc.)
+  final Widget? animatedIcon;
 
   /// creates a menu item .
   /// [onTap] must not be null.
