@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import 'circular_menu_item.dart';
+import 'custom_animated_icons.dart';
+import 'simple_add_close_icon.dart';
 
 class CircularMenu extends StatefulWidget {
   /// use global key to control animation anywhere in the code
@@ -39,6 +41,9 @@ class CircularMenu extends StatefulWidget {
   final Color? toggleButtonIconColor;
   final AnimatedIconData toggleButtonAnimatedIconData;
 
+  /// Use custom add/close icon animation instead of default AnimatedIcon
+  final bool useCustomAddCloseIcon;
+
   /// staring angle in clockwise radian
   final double? startingAngleInRadian;
 
@@ -65,6 +70,7 @@ class CircularMenu extends StatefulWidget {
     this.toggleButtonSize = 40,
     this.toggleButtonIconColor,
     this.toggleButtonAnimatedIconData = AnimatedIcons.menu_close,
+    this.useCustomAddCloseIcon = false,
     this.key,
     this.startingAngleInRadian,
     this.endingAngleInRadian,
@@ -239,13 +245,18 @@ class CircularMenuState extends State<CircularMenu>
             }
           },
           boxShadow: widget.toggleButtonBoxShadow,
-          animatedIcon: AnimatedIcon(
-            icon:
-                widget.toggleButtonAnimatedIconData, //AnimatedIcons.menu_close,
-            size: widget.toggleButtonSize,
-            color: widget.toggleButtonIconColor ?? Colors.white,
-            progress: _animation,
-          ),
+          animatedIcon: widget.useCustomAddCloseIcon
+              ? SimpleAddCloseIcon(
+                  progress: _animation,
+                  size: widget.toggleButtonSize,
+                  color: widget.toggleButtonIconColor ?? Colors.white,
+                )
+              : AnimatedIcon(
+                  icon: widget.toggleButtonAnimatedIconData,
+                  size: widget.toggleButtonSize,
+                  color: widget.toggleButtonIconColor ?? Colors.white,
+                  progress: _animation,
+                ),
         ),
       ),
     );
